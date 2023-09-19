@@ -1,0 +1,513 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+.main {
+  background: url("bg.6c772103.png") center no-repeat;
+  justify-content: space-between;
+  align-items: start;
+  max-width: 1920px;
+  height: 700px;
+  display: flex;
+  position: relative;
+}
+
+.main__search {
+  z-index: 4;
+  background-color: #0094ff26;
+  width: 650px;
+  height: 100vh;
+  position: absolute;
+  top: -1000%;
+  left: 72%;
+}
+
+.main__search.active {
+  z-index: 10;
+  width: 1520px;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main__search .main__search__item {
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  display: flex;
+}
+
+.main__search .search__item__input {
+  border: 1px solid #0000;
+  border-radius: 47px;
+  width: 350px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.main__search .search__item {
+  margin: auto;
+  position: relative;
+}
+
+.main__search .search__item .krest, .main__search .search__item .krest:before, .main__search .search__item .krest:after {
+  background-color: #f8f5f5;
+  width: 20px;
+  height: 2px;
+  margin-top: -1px;
+  margin-left: -10px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.main__search .search__item .krest {
+  cursor: pointer;
+  height: 0;
+  position: absolute;
+  top: -5%;
+  left: 100%;
+}
+
+.main__search .search__item .krest:before {
+  content: "";
+  transform: rotate(45deg);
+}
+
+.main__search .search__item .krest:after {
+  content: "";
+  transform: rotate(-45deg);
+}
+
+.main__search .search__item .options {
+  background-color: #0000;
+  width: 360px;
+}
+
+.main__search .search__item .options li {
+  cursor: pointer;
+  background-color: #3aa9ff;
+  border: 1px solid #0000;
+  border-radius: 13px;
+  width: 350px;
+  margin: 5px;
+  padding: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 13px;
+  font-weight: 200;
+}
+
+.main__search .search__item .options li:hover {
+  background-color: #abbfce;
+}
+
+.main__search .search__item .search__in {
+  background-color: #abbfce;
+  border: 1px solid #0000;
+  border-radius: 47px;
+  width: 350px;
+  margin: 5px;
+  padding: 5px;
+  font-size: 15px;
+  line-height: 20px;
+  transition: all .3s;
+}
+
+.main__search .search__item .search__in:hover {
+  color: #fff;
+  cursor: pointer;
+  background-color: #3aa9ff;
+  transition: all .3s;
+}
+
+.search__location {
+  z-index: 5;
+  width: 350px;
+  position: absolute;
+  top: 23%;
+  left: 72%;
+}
+
+.search__location .card__aside {
+  background-color: #0000;
+  border: 1px solid #ffffff4d;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  height: 120px;
+  margin: 10px auto;
+  padding: 5px;
+  display: flex;
+}
+
+.card__aside__left {
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+  height: 120px;
+  display: flex;
+}
+
+.card__aside__left .card__aside__city {
+  color: #fff;
+  padding: 10px;
+  font-family: serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 38px;
+}
+
+.card__aside__left .card__aside__weather {
+  color: #fff;
+  padding: 10px;
+  font-family: serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.card__aside__right {
+  text-align: center;
+  margin: auto;
+}
+
+.card__aside__temp {
+  text-align: center;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  padding: 5px;
+  font-size: 21px;
+  display: flex;
+}
+
+.error {
+  color: red;
+  padding: 5px 15px;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.main__menu {
+  z-index: 4;
+  max-width: 1035px;
+  height: 1035px;
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.main__menu .main__menu__city {
+  background-color: #0000;
+  width: 220px;
+  height: 130px;
+  margin: 10px auto;
+}
+
+.main__menu .main__menu__weather {
+  width: 1135px;
+  margin: 10px 20px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day {
+  background-color: #ffffff4d;
+  border: 1px solid #ffffff4d;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 435px;
+  height: 500px;
+  margin: 10px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card {
+  border-bottom: 1px solid #4242421a;
+  align-items: center;
+  width: 410px;
+  height: 40px;
+  margin: 5px;
+  padding-bottom: 5px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp {
+  width: 300px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon {
+  justify-content: space-between;
+  width: 400px;
+  height: 40px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon .img__icon, .main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon .img__icon img {
+  width: 40px;
+  height: 40px;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon .temp {
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  display: flex;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon .temp .min__temp, .main__menu .main__menu__weather .weather__teen__day .teen__day__card .icon__temp .card__day__icon .temp .max__temp {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 18px;
+}
+
+.main__menu .main__menu__weather .weather__teen__day .weather__day__status {
+  background-color: #e61717;
+  width: 200px;
+  height: 220px;
+}
+
+.main__menu .card__day__name {
+  color: #000;
+  width: 100px;
+  margin: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.main__menu .city__name {
+  text-align: center;
+  color: #fff;
+  width: 220px;
+  margin: auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 24px;
+  font-weight: 200;
+  line-height: 28px;
+}
+
+.main__menu .city__temp {
+  text-align: center;
+  color: #fff;
+  width: 220px;
+  margin: auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 58px;
+  font-weight: 100;
+  line-height: 62px;
+}
+
+.main__menu .city__description {
+  text-align: center;
+  color: #fff;
+  width: 220px;
+  margin: auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 24px;
+}
+
+.main__menu .city__number {
+  text-align: center;
+  color: #fff;
+  width: 220px;
+  font-family: serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 25px;
+}
+
+.main__menu .teen__day__card {
+  display: flex;
+}
+
+.main__menu .teen__day__card .card__day__icon {
+  margin: 10px;
+}
+
+.main__menu .card__day__temp {
+  margin: 5px;
+}
+
+.weather__day__status {
+  margin: 10px;
+}
+
+.weather__day__status .status__head {
+  background-color: #ffffff4d;
+  border: 1px solid #ffffff4d;
+  border-radius: 15px;
+  width: 520px;
+  height: 193px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.weather__day__status .status__head .head__weather__title {
+  border-bottom: 1px solid #4242421a;
+  width: 500px;
+  margin: 5px;
+  padding: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 11px;
+  font-weight: 200;
+}
+
+.weather__day__status .status__head .head__weather__body {
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+}
+
+.weather__day__status .status__head .head__weather__body .body__weather {
+  text-align: center;
+  margin: 5px auto;
+}
+
+.weather__day__status .status__head .head__weather__body .body__weather .time {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 13px;
+  font-weight: 200;
+}
+
+.weather__day__status .status__head .head__weather__body .body__weather .head__icon {
+  width: 35px;
+  height: 35px;
+  margin: 5px;
+  display: flex;
+}
+
+.weather__day__status .status__head .head__weather__body .body__weather .head__temp {
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  display: flex;
+}
+
+.status__card {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 520px;
+  display: flex;
+}
+
+.status__card .status__card__item {
+  background-color: #ffffff4d;
+  border: 1px solid #ffffff4d;
+  border-radius: 15px;
+  width: 140px;
+  height: 140px;
+  margin: 6px;
+}
+
+.status__card .status__card__item .card__item__title {
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  display: flex;
+}
+
+.card__item__body, .card__item__hum, .card__item__sunset, .card__item__visibl, .card__item__sunrise {
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 24px;
+}
+
+.teen__day__title {
+  text-align: center;
+  color: #424242;
+  width: 400px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.video {
+  z-index: 1;
+}
+
+.video__rain {
+  z-index: 100;
+  width: 1500px;
+  height: auto;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video__sunny, .video__oblachno, .video__clouds {
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hl {
+  background-color: #ff814f;
+}
+
+.form__btn {
+  height: 30 px;
+  color: #fff;
+  z-index: 5;
+  cursor: pointer;
+  background-color: #0000;
+  border: 1px solid #fdfdfd;
+  width: 100px;
+  line-height: 20px;
+  transition: all .4s;
+  position: absolute;
+  top: 2%;
+  left: 92%;
+}
+
+.form__btn:hover {
+  background-color: #3aa9ff;
+  border: 1px solid #3aa9ff;
+  transition: all .4s;
+}
+
+/*# sourceMappingURL=index.da533f7e.css.map */

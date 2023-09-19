@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+.main {
+  max-width: 1920px;
+  height: 700px;
+  background: url("../img/bg.png") no-repeat center;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  position: relative;
+
+}
+
+@import "search.scss";
+@import "menu.scss";
