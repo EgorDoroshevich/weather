@@ -72,7 +72,7 @@
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
           sans-serif;
         font-weight: 200;
-        font-size:13px;
+        font-size: 13px;
         background-color: rgba(58, 169, 255, 1);
         margin: 5px;
         padding: 5px;
@@ -111,6 +111,7 @@
   z-index: 5;
   .card__aside {
     width: 300px;
+    position: relative;
     height: 120px;
     margin: 10px auto;
     padding: 5px;
@@ -119,53 +120,92 @@
     justify-content: space-between;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
-    background-color: transparent;
-    // background: url('../img/rain.png') no-repeat center;
+
+    .card__aside__left {
+    width: 250px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card__aside__city {
+      padding: 10px;
+      font-family: serif;
+      font-size: 21px;
+      color: #fff;
+      line-height: 38px;
+      font-weight: 400;
+    }
+
+    .card__aside__weather {
+      padding: 10px;
+      font-family: serif;
+      font-size: 21px;
+      color: #fff;
+      line-height: 32px;
+      font-weight: 400;
+    }
   }
-}
-
-.card__aside__left {
-  width: 250px;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .card__aside__city {
-    padding: 10px;
-    font-family: serif;
-    font-size: 21px;
+  .card__aside__right {
+    margin: auto;
+    text-align: center;
+  }
+  .card__aside__temp {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     color: #fff;
-    line-height: 38px;
-    font-weight: 400;
+    font-size: 21px;
   }
 
-  .card__aside__weather {
-    padding: 10px;
-    font-family: serif;
-    font-size: 21px;
-    color: #fff;
-    line-height: 32px;
-    font-weight: 400;
   }
 }
-.card__aside__right {
-  margin: auto;
-  text-align: center;
-}
-.card__aside__temp {
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #fff;
-  font-size: 21px;
-}
+// .card__video {
+//   z-index: 1;
+//   .card__video__rain {
+//     width: 100%;
+//     display: none;
+//     height: auto;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 100;
+//   }
+//   .card__video__clouds {
+//     width: 100%;
+//     display: none;
+//     height: auto;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 100;
+//   }
+//   .card__video__oblachno {
+//     width: 100%;
+//     display: none;
+//     height: auto;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 100;
+//   }
+//   .card__video__sunny {
+//     width: 100%;
+//     display: none;
+//     height: auto;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     z-index: 100;
+//   }
+// }
 .error {
+  display: none;
   color: red;
   font-size: 13px;
   line-height: 15px;
