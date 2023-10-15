@@ -1,3 +1,7 @@
+@import "./search.scss";
+@import "./menu.scss";
+@import "./_cdn.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -14,8 +18,4 @@
   align-items: start;
   justify-content: space-between;
   position: relative;
-
 }
-
-@import "search.scss";
-@import "menu.scss";

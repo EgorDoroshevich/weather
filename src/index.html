@@ -92,6 +92,9 @@
 
 
           </div>
+           <div class="weather__burger">
+            <a href="#" class="weather__burger__menu">WEATHER 5-DAY  FORECAST</a>
+          </div>
           <div class="weather__day__status">
             <div class="status__head">
               <div class="head__weather__title">
@@ -157,9 +160,15 @@
                 <div class="card__item__sunrise"></div>
               </div>
               <div class="status__card__item">
+                <div class="status__card__item__wind">
                 <div class="card__item__title">
                   <img src="./img/wind.png" alt="#">
                   <span>WIND</span>
+                </div>
+                <div class="card__item__wind">
+                  <img class = "image__wind" src="./img/windTurn.png" alt="#">
+                  <span class = "wind__speed"></span>
+                </div>
                 </div>
               </div>
               <div class="status__card__item">
@@ -185,9 +194,10 @@
               </div>
             </div>
           </div>
+         
         </div>
       </div> 
-      <button class="form__btn">SEARCH</button>
+      <button class="search__btn">SEARCH</button>
       <div class="main__search">
         <div class="main__search__item">     
           <div class="search__item">
@@ -196,17 +206,20 @@
              </ul>
              <div><p class="error"></p></div>
              <button class="search__in">ok</button>
-             <a href="#" class = "krest">
+             <a href="#" class = "close__popup">
              </a>
           </div>  
         </div>
         
       </div>
       <div class="search__location"></div>
+      <div class="location__burger">
+        <a href="#" class="location__burger__menu">Open City</a>
+      </div>
       <div class="video">
         <video class="video__rain" src="./video/rain.mp4" autoplay muted loop></video>
         <video class="video__clouds" src="./video/clouds.mp4" autoplay muted loop></video>
-        <video class="video__oblachno" src="./video/oblachno.mp4" autoplay muted loop></video>
+        <video class="video__cloudy" src="./video/oblachno.mp4" autoplay muted loop></video>
         <video class="video__sunny" src="./video/sunny.mp4" autoplay muted loop></video>
     </div>
     
@@ -216,6 +229,6 @@
 
 
 <script src="https://kit.fontawesome.com/5542da864f.js" crossorigin="anonymous"></script>
-    <script type="module" src="js/app.js"></script>
+    <script type="module" src="./js/app.js"></script>
   </body>
 </html>

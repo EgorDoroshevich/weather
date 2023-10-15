@@ -30,13 +30,66 @@
     padding: 5px;
     border: 1px solid transparent;
     border-radius: 47px;
+    @media (max-width: 763px) {
+      width: 250px;
+    }
   }
   .search__item {
     margin: auto;
     position: relative;
-    & .krest,
-    & .krest::before,
-    & .krest::after {
+    @media (max-width: 1183px) {
+      position: absolute;
+      top: 40%;
+      left: 30%;
+    }
+    @media (max-width: 1110px) {
+      position: absolute;
+      top: 40%;
+      left: 27%;
+    }
+    @media (max-width: 1050px) {
+      position: absolute;
+      top: 40%;
+      left: 22%;
+    }
+    @media (max-width: 965px) {
+      position: absolute;
+      top: 40%;
+      left: 24%;
+    }
+    @media (max-width: 920px) {
+      position: absolute;
+      top: 40%;
+      left: 19%;
+    }
+    @media (max-width: 820px) {
+      position: absolute;
+      top: 40%;
+      left: 15%;
+    }
+    @media (max-width: 640px) {
+      position: absolute;
+      top: 40%;
+      left: 10%;
+    }
+    @media (max-width: 520px) {
+      position: absolute;
+      top: 40%;
+      left: 7%;
+    }
+    @media (max-width: 410px) {
+      position: absolute;
+      top: 40%;
+      left: 4%;
+    }
+    @media (max-width: 360px) {
+      position: absolute;
+      top: 40%;
+      left: 2%;
+    }
+    & .close__popup,
+    & .close__popup::before,
+    & .close__popup::after {
       position: absolute;
       top: 50%;
       margin-top: -1px;
@@ -47,18 +100,23 @@
       height: 2px;
       background-color: #f8f5f5;
     }
-    & .krest {
+    & .close__popup {
       height: 0;
       position: absolute;
       top: -5%;
       left: 100%;
       cursor: pointer;
+      @media (max-width: 763px) {
+        position: absolute;
+        top: -5%;
+        left: 75%;
+      }
     }
-    & .krest::before {
+    & .close__popup::before {
       content: "";
       transform: rotate(45deg);
     }
-    & .krest::after {
+    & .close__popup::after {
       content: "";
       transform: rotate(-45deg);
     }
@@ -79,6 +137,9 @@
         border: 1px solid transparent;
         border-radius: 13px;
         cursor: pointer;
+        @media(max-width:764px){
+          width: 250px;
+        }
         &:hover {
           background-color: rgba(171, 191, 206, 1);
         }
@@ -94,6 +155,9 @@
       border: 1px solid transparent;
       border-radius: 47px;
       transition: 0.3s;
+      @media (max-width: 763px) {
+        width: 250px;
+      }
       &:hover {
         background-color: rgba(58, 169, 255, 1);
         color: #fff;
@@ -106,9 +170,70 @@
 .search__location {
   width: 350px;
   position: absolute;
-  top: 23%;
+  top: 21.5%;
   left: 72%;
   z-index: 5;
+  @media (max-width: 1183px) {
+    width: 250px;
+    height: 120px;
+    position: absolute;
+    top: 21.5%;
+    left: 77%;
+    z-index: 5;
+  }
+  @media (max-width: 1110px) {
+    width: 250px;
+    height: 120px;
+    position: absolute;
+    top: 21.5%;
+    left: 73%;
+    z-index: 5;
+  }
+  @media (max-width: 965px) {
+    width: 230px;
+    height: 120px;
+    position: absolute;
+    top: 21.5%;
+    left: 71%;
+    z-index: 5;
+  }
+  @media (max-width: 893px) {
+    width: 200px;
+    height: 120px;
+    position: absolute;
+    top: 21.5%;
+    left: 75%;
+    z-index: 5;
+  }
+  @media (max-width: 844px) {
+    width: 200px;
+    height: 120px;
+    position: absolute;
+    top: -1000%;
+    z-index: 5;
+    &.active {
+      width: 600px;
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: absolute;
+      left: 3.5%;
+      top: 67%;
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      @media (max-width: 640px) {
+        width: 450px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.3);
+        position: absolute;
+        left: 12%;
+        top: 82%;
+      }
+    }
+  }
+
   .card__aside {
     width: 300px;
     position: relative;
@@ -120,94 +245,123 @@
     justify-content: space-between;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
-
+    @media (max-width: 1183px) {
+      width: 250px;
+      height: 100px;
+    }
+    @media (max-width: 965px) {
+      width: 230px;
+      height: 100px;
+    }
+    @media (max-width: 893px) {
+      width: 200px;
+      height: 80px;
+    }
     .card__aside__left {
-    width: 250px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+      width: 250px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @media (max-width: 1183px) {
+        width: 250px;
+        height: 100px;
+      }
+      .card__aside__city {
+        padding: 10px;
+        font-family: serif;
+        font-size: 21px;
+        color: #fff;
+        line-height: 38px;
+        font-weight: 400;
+        @media (max-width: 1183px) {
+          padding: 5px;
+          font-size: 18px;
+          line-height: 32px;
+        }
+      }
 
-    .card__aside__city {
-      padding: 10px;
-      font-family: serif;
-      font-size: 21px;
-      color: #fff;
-      line-height: 38px;
-      font-weight: 400;
+      .card__aside__weather {
+        padding: 10px;
+        font-family: serif;
+        font-size: 21px;
+        color: #fff;
+        line-height: 32px;
+        font-weight: 400;
+        @media (max-width: 1183px) {
+          padding: 5px;
+          font-size: 15px;
+          line-height: 29px;
+        }
+      }
     }
-
-    .card__aside__weather {
-      padding: 10px;
-      font-family: serif;
-      font-size: 21px;
-      color: #fff;
-      line-height: 32px;
-      font-weight: 400;
+    .card__aside__right {
+      margin: auto;
+      text-align: center;
     }
-  }
-  .card__aside__right {
-    margin: auto;
-    text-align: center;
-  }
-  .card__aside__temp {
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    font-size: 21px;
-  }
-
+    .card__aside__temp {
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      font-size: 21px;
+      @media (max-width: 1183px) {
+        width: 80px;
+        height: 80px;
+        font-size: 18px;
+      }
+    }
   }
 }
-// .card__video {
-//   z-index: 1;
-//   .card__video__rain {
-//     width: 100%;
-//     display: none;
-//     height: auto;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     z-index: 100;
-//   }
-//   .card__video__clouds {
-//     width: 100%;
-//     display: none;
-//     height: auto;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     z-index: 100;
-//   }
-//   .card__video__oblachno {
-//     width: 100%;
-//     display: none;
-//     height: auto;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     z-index: 100;
-//   }
-//   .card__video__sunny {
-//     width: 100%;
-//     display: none;
-//     height: auto;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     z-index: 100;
-//   }
-// }
+
 .error {
   display: none;
   color: red;
   font-size: 13px;
   line-height: 15px;
   padding: 5px 15px;
+}
+.location__burger {
+  display: none;
+  .location__burger__menu {
+    width: 100px;
+    height: 20px;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 3px;
+    color: #fff;
+    text-align: center;
+    &:hover {
+      color: #fff;
+    }
+  }
+  @media (max-width: 844px) {
+    display: block;
+    text-align: center;
+    width: 100px;
+    position: absolute;
+    top: 10%;
+    left: 80%;
+    z-index: 5;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(58, 169, 255, 1);
+    }
+  }
+  @media(max-width:580px){
+    position: absolute;
+    top: 10%;
+    left: 62%;
+    z-index: 5;
+  }
+  @media(max-width:540px){
+   display: none;
+  }
 }

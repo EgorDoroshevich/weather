@@ -578,28 +578,29 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getHoursString", ()=>getHoursString);
 parcelHelpers.export(exports, "getHours", ()=>getHours);
-var _weatherVideo = require("./weatherVideo");
-var _weekDay = require("./weekDay");
-var _additionally = require("./ additionally");
+var _setVideoWeather = require("./setVideoWeather");
+var _setDayOfTheWeek = require("./setDayOfTheWeek");
+var _additionally = require("./additionally");
 const { data, get } = require("40fed2546306545a");
-let formBtn = document.querySelector(".form__btn");
-let temp = document.querySelector(".city__temp");
-let description = document.querySelector(".city__description");
-let cityName = document.querySelector(".city__name");
-let searchInput = document.querySelector(".search__item__input");
-let searchOption = document.querySelector(".options");
-let serchIn = document.querySelector(".search__in");
-let location = document.querySelector(".search__location");
-let mainSearch = document.querySelector(".main__search");
-let mainMenu = document.querySelector(".main__menu");
-let times = document.querySelectorAll(".time");
-let icons = document.querySelectorAll(".head__icon");
-let temps = document.querySelectorAll(".head__temp");
-let minTemps = document.querySelectorAll(".min__temp");
-let maxTemps = document.querySelectorAll(".max__temp");
-let tenIcons = document.querySelectorAll(".img__icon");
-let krest = document.querySelector(".krest");
-let error = document.querySelector(".error");
+const searchBtn = document.querySelector(".search__btn");
+const temperatureNow = document.querySelector(".city__temp");
+const description = document.querySelector(".city__description");
+const cityName = document.querySelector(".city__name");
+const searchInput = document.querySelector(".search__item__input");
+const searchOption = document.querySelector(".options");
+const searchIn = document.querySelector(".search__in");
+const location = document.querySelector(".search__location");
+const mainSearch = document.querySelector(".main__search");
+const mainMenu = document.querySelector(".main__menu");
+const times = document.querySelectorAll(".time");
+const icons = document.querySelectorAll(".head__icon");
+const temps = document.querySelectorAll(".head__temp");
+const minTemps = document.querySelectorAll(".min__temp");
+const maxTemps = document.querySelectorAll(".max__temp");
+const tenIcons = document.querySelectorAll(".img__icon");
+const closePopup = document.querySelector(".close__popup");
+const error = document.querySelector(".error");
+const locationBurger = document.querySelector(".location__burger");
 function getHoursString(dateTime) {
     let date = new Date(dateTime);
     let hours = `${date.getHours()}:${date.getMinutes()}${date.getMinutes()}`;
@@ -607,87 +608,102 @@ function getHoursString(dateTime) {
 }
 function getHours(data) {
     let date = new Date(data);
-    let hours = ` ${date.getHours()}:${date.getMinutes()}`;
+    let hours = `${date.getHours()}:${date.getMinutes()}`;
     return hours;
 }
 function init() {
-    const validation = {
-        city: "Введите название города",
-        noneCity: "Ваш город не найден"
+    const VALIDATION = {
+        emptyLine: "Введите название города",
+        wrongName: "Ваш город не найден"
     };
-    formBtn.addEventListener("click", function() {
+    searchBtn.addEventListener("click", function() {
         error.innerHTML = "";
         mainSearch.classList.toggle("active");
-        mainSearch.classList = "main__search active";
-        mainMenu.style.filter = "blur(3px)";
-        location.style.filter = "blur(3px)";
-        formBtn.style.filter = "blur(3px)";
-    });
-    serchIn.addEventListener("click", ()=>{
-        if (searchInput.value == "") {
-            searchInput.style.border = " 1px solid red";
-            error.style.display = "block";
-            error.innerHTML = validation.city;
+        if (mainSearch.classList.contains("active")) {
             mainMenu.style.filter = "blur(3px)";
             location.style.filter = "blur(3px)";
-            formBtn.style.filter = "blur(3px)";
+            searchBtn.style.filter = "blur(3px)";
+            locationBurger.style.filter = "blur(3px)";
+        } else {
+            error.innerHTML = "";
+            mainMenu.style.filter = "none";
+            location.style.filter = "none";
+            searchBtn.style.filter = "none";
+            locationBurger.style.filter = "none";
+        }
+    });
+    searchIn.addEventListener("click", ()=>{
+        if (searchInput.value === "") {
+            searchInput.style.border = " 1px solid red";
+            error.style.display = "block";
+            error.innerHTML = VALIDATION.emptyLine;
+            mainMenu.style.filter = "blur(3px)";
+            location.style.filter = "blur(3px)";
+            searchBtn.style.filter = "blur(3px)";
+            locationBurger.style.filter = "blur(3px)";
         } else {
             error.style.display = "none";
             searchInput.style.border = " 1px solid rgba(0, 148, 255, 0.15)";
             mainSearch.classList.toggle("active");
             mainMenu.style.filter = "none";
             location.style.filter = "none";
-            formBtn.style.filter = "none";
-            weatherNow(searchInput.value);
-            weatherTenDay(searchInput.value);
+            searchBtn.style.filter = "none";
+            locationBurger.style.filter = "none";
+            getWeatherNow(searchInput.value);
+            getWeatherFiveDay(searchInput.value);
             searchInput.value = "";
             location.innerHTML = addCard();
             addCard();
         }
     });
-    krest.addEventListener("click", ()=>{
+    closePopup.addEventListener("click", ()=>{
         error.style.display = "none";
         searchInput.style.border = " 1px solid rgba(0, 148, 255, 0.15)";
         mainSearch.classList.remove("active");
         mainMenu.style.filter = "none";
         location.style.filter = "none";
-        formBtn.style.filter = "none";
+        searchBtn.style.filter = "none";
+        locationBurger.style.filter = "none";
         searchInput.value = "";
     });
-    (0, _weekDay.weekDay)();
-    const apiKey = "6c75935c4cd7d533d00015e611a56556";
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
-    async function weatherNow(city) {
-        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    (0, _setDayOfTheWeek.setDayOfTheWeek)();
+    const API_KEY = "6c75935c4cd7d533d00015e611a56556";
+    const API_URL_WEATHER_NOW = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
+    async function getWeatherNow(city) {
+        const response = await fetch(API_URL_WEATHER_NOW + city + `&appid=${API_KEY}`);
         const data = await response.json();
         if (data.cod == "200") {
-            temp.innerHTML = Math.round(data.main.temp) + "&#8451";
+            temperatureNow.innerHTML = Math.round(data.main.temp) + "&#8451";
             description.innerHTML = data.weather.map((item)=>item.description);
             cityName.innerHTML = data.name;
             location.innerHTML += addCard(data);
-            (0, _additionally.feelLike)(data);
-            (0, _additionally.humidit)(data);
-            (0, _additionally.sunSet)(data);
-            (0, _additionally.visibility)(data);
-            (0, _additionally.sunRise)(data);
-            (0, _weatherVideo.weather)(data);
+            (0, _additionally.setWeatherFeelLike)(data);
+            (0, _additionally.setHumidity)(data);
+            (0, _additionally.setSunSet)(data);
+            (0, _additionally.setVisibility)(data);
+            (0, _additionally.setSunRise)(data);
+            (0, _setVideoWeather.setVideoBackgroundWeather)(data);
         } else {
             mainSearch.classList.toggle("active");
             searchInput.style.border = " 1px solid red";
             error.style.display = "block";
-            error.innerHTML = validation.noneCity;
+            error.innerHTML = VALIDATION.wrongName;
             mainMenu.style.filter = "blur(3px)";
             location.style.filter = "blur(3px)";
-            formBtn.style.filter = "blur(3px)";
+            searchBtn.style.filter = "blur(3px)";
         }
     }
     const nameCity = [];
-    const api = `https://api.hh.ru/areas`;
-    fetch(api).then((res)=>res.json()).then((data)=>{
+    const API_AREAS = `https://api.hh.ru/areas`;
+    fetch(API_AREAS).then((res)=>res.json()).then((data)=>{
         console.log("data >>> ", data);
-        data.forEach((el)=>{
-            nameCity.push(...el.areas);
-        });
+        try {
+            data.forEach((el)=>{
+                nameCity.push(...el.areas);
+            });
+        } catch  {
+            console.log("Error");
+        }
     });
     function getOptions(word, nameCity) {
         return nameCity.filter((s)=>{
@@ -708,86 +724,79 @@ function init() {
     }
     searchInput.addEventListener("change", displayOptions);
     searchInput.addEventListener("keyup", displayOptions);
-    async function weatherTenDay(city) {
-        const apiTenDayUrl = `https://api.openweathermap.org/data/2.5/forecast?units=metric&q=${city}`;
-        const response = await fetch(apiTenDayUrl + `&appid=${apiKey}`);
+    async function getWeatherFiveDay(city) {
+        const API_FIVE_DAY_URL = `https://api.openweathermap.org/data/2.5/forecast?units=metric&q=${city}`;
+        const response = await fetch(API_FIVE_DAY_URL + `&appid=${API_KEY}`);
         const data = await response.json();
-        console.log(data, "data");
-        let array = [];
-        let base = [];
-        let arrayMin = data.list.slice();
-        let arrayMax = data.list.slice();
-        function minNumber() {
-            let one = arrayMin.splice(0, 8);
-            one.forEach((elem)=>{
-                let oneDay = elem.main.temp_min;
-                array.push(oneDay);
-                return oneDay;
-            });
-            let sum = array.reduce((x, y)=>Math.min(x, y));
-            return sum;
+        // console.log(data);
+        let newArr = data.list.slice();
+        function getMinimumTemperatureFiveDay() {
+            let oneDayMinTemperature = [
+                ...newArr.splice(0, 8)
+            ];
+            let minTemperature = oneDayMinTemperature.map((elem)=>elem.main.temp_min).reduce((x, y)=>Math.min(x, y));
+            return minTemperature;
         }
-        function maxNumber() {
-            let one = arrayMax.splice(0, 8);
-            one.forEach((elem)=>{
-                let oneDay = elem.main.temp_max;
-                base.push(oneDay);
-                return oneDay;
-            });
-            let sum = base.reduce((x, y)=>Math.max(x, y));
-            return sum;
+        function getMaximumTemperatureFiveDay() {
+            let oneDayMaxTemperature = [
+                ...data.list.splice(0, 8)
+            ];
+            let maxTemperature = oneDayMaxTemperature.map((elem)=>elem.main.temp_max).reduce((x, y)=>Math.max(x, y));
+            console.log(maxTemperature);
+            return maxTemperature;
         }
-        function getMaxTemp() {
+        function setMaximumTemperature() {
             data.list.forEach((elem, idx)=>{
                 maxTemps.forEach((el, id)=>{
-                    if (idx === id) el.innerHTML = Math.round(maxNumber()) + "&#8451";
+                    if (idx === id) el.innerHTML = Math.round(getMaximumTemperatureFiveDay()) + "&#8451";
                 });
             });
         }
-        function getMinTemp() {
+        function setMinimumTemperature() {
             data.list.forEach((elem, idx)=>{
                 minTemps.forEach((el, id)=>{
-                    if (idx === id) el.innerHTML = Math.round(minNumber()) + "&#8451";
+                    if (idx === id) el.innerHTML = Math.round(getMinimumTemperatureFiveDay()) + "&#8451";
                 });
             });
         }
-        function getTemp() {
+        function setTemperature() {
             data.list.forEach((el, idx)=>{
                 temps.forEach((elem, id)=>{
                     if (idx === id) elem.innerHTML = Math.round(el.main.temp) + "&#8451";
                 });
             });
         }
-        function getIcon() {
+        function setIcon() {
             data.list.forEach((el, idx)=>{
                 icons.forEach((elem, id)=>{
                     if (idx === id) elem.innerHTML = `<img src = "http://openweathermap.org/img/w/${el.weather[0].icon}.png" alt = "#">`;
                 });
             });
         }
-        function getTime() {
+        function setTime() {
             data.list.forEach((el, idx)=>{
                 times.forEach((elem, id)=>{
                     if (idx === id) elem.innerHTML = getHoursString(el.dt * 1000);
                 });
             });
         }
-        function getTenIcon() {
+        function setFiveIcon() {
             data.list.forEach((el, idx)=>{
                 tenIcons.forEach((elem, index)=>{
                     if (idx === index) elem.innerHTML = `<img src = "http://openweathermap.org/img/w/${el.weather[0].icon}.png" alt = "#">`;
                 });
             });
         }
-        getTenIcon();
-        getTime();
-        getIcon();
-        getTemp();
-        getMinTemp();
-        getMaxTemp();
+        setFiveIcon();
+        setTime();
+        setIcon();
+        setTemperature();
+        setMinimumTemperature();
+        setMaximumTemperature();
     }
-    function addCard(data) {
-        return `<div class="card__aside">
+}
+function addCard(data) {
+    return `<div class="card__aside">
   <div class="card__aside__left">
   <div class="card__aside__city">${data.name}</div> 
   <div class="card__aside__weather">${data.weather.map((item)=>item.description)}</div>
@@ -796,11 +805,24 @@ function init() {
   <div class="card__aside__temp">${Math.round(data.main.temp) + "&#8451"}</div>
   </div>
 </div>`;
-    }
 }
+let link = document.querySelector(".weather__burger__menu");
+let weatherFiveDay = document.querySelector(".weather__teen__day");
+link.addEventListener("click", function(e) {
+    e.preventDefault;
+    weatherFiveDay.classList.toggle("active");
+    link.classList.toggle("active");
+});
+let cityBurgerMenu = document.querySelector(".location__burger__menu");
+let searchLocationCard = document.querySelector(".search__location");
+cityBurgerMenu.addEventListener("click", function(e) {
+    e.preventDefault;
+    cityBurgerMenu.classList.toggle("active");
+    searchLocationCard.classList.toggle("active");
+});
 init();
 
-},{"40fed2546306545a":"hgMhh","./weatherVideo":"4bV0w","./weekDay":"1Mvhk","./ additionally":"9mBRZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgMhh":[function(require,module,exports) {
+},{"40fed2546306545a":"hgMhh","./setVideoWeather":"gouqV","./setDayOfTheWeek":"kRNQv","./additionally":"87ZlO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgMhh":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.7.0
  * https://jquery.com/
@@ -7497,43 +7519,39 @@ init();
     return jQuery;
 });
 
-},{}],"4bV0w":[function(require,module,exports) {
+},{}],"gouqV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "weather", ()=>weather);
+parcelHelpers.export(exports, "setVideoBackgroundWeather", ()=>setVideoBackgroundWeather);
 let videoRain = document.querySelector(".video__rain");
 let videoClouds = document.querySelector(".video__clouds");
-let videoOblachno = document.querySelector(".video__oblachno");
+let videoCloudy = document.querySelector(".video__cloudy");
 let videoSunny = document.querySelector(".video__sunny");
-let videoCardRain = document.querySelector(".card__video__rain");
-let videoCardClouds = document.querySelector(".card__video__clouds");
-let videoCardOblachno = document.querySelector(".card__video__oblachno");
-let videoCardSunny = document.querySelector(".card__video__sunny");
-function weather(data) {
+function setVideoBackgroundWeather(data) {
     if (data.rain) {
         videoRain.style.display = "block";
         videoClouds.style.display = "none";
-        videoOblachno.style.display = "none";
+        videoCloudy.style.display = "none";
         videoSunny.style.display = "none";
     } else if (data.weather[0].main == "Clouds" && data.wind.speed >= "5") {
         videoRain.style.display = "none";
         videoClouds.style.display = "block";
-        videoOblachno.style.display = "none";
+        videoCloudy.style.display = "none";
         videoSunny.style.display = "none";
     } else if (data.weather[0].main == "Clouds") {
         videoRain.style.display = "none";
         videoClouds.style.display = "none";
-        videoOblachno.style.display = "block";
+        videoCloudy.style.display = "block";
         videoSunny.style.display = "none";
     } else if (data.weather[0].main == "Clear") {
         videoRain.style.display = "none";
         videoClouds.style.display = "none";
-        videoOblachno.style.display = "none";
+        videoCloudy.style.display = "none";
         videoSunny.style.display = "block";
     } else {
         videoRain.style.display = "none";
         videoClouds.style.display = "none";
-        videoOblachno.style.display = "none";
+        videoCloudy.style.display = "none";
         videoSunny.style.display = "none";
     }
 }
@@ -7568,17 +7586,17 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"1Mvhk":[function(require,module,exports) {
+},{}],"kRNQv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "weekDay", ()=>weekDay);
-let tenDays = document.querySelectorAll(".card__day__name");
+parcelHelpers.export(exports, "setDayOfTheWeek", ()=>setDayOfTheWeek);
+let fiveDays = document.querySelectorAll(".card__day__name");
 const date = new Date();
 const options = {
     weekday: "long"
 };
 const dayOfWeek = date.toLocaleString("en-US", options);
-let days = [
+let daysOfWeek = [
     "Monday",
     "Tuesday ",
     "Wednesday",
@@ -7587,12 +7605,12 @@ let days = [
     "Saturday",
     "Sunday"
 ];
-function weekDay() {
-    days.filter((el, idx)=>{
-        if (dayOfWeek == el) {
-            let dni = days.slice(idx, idx + 5);
-            dni.forEach((element, id)=>{
-                tenDays.forEach((elem, index)=>{
+function setDayOfTheWeek() {
+    daysOfWeek.forEach((el, idx)=>{
+        if (dayOfWeek === el) {
+            let selectedDaysOfWeek = daysOfWeek.slice(idx, idx + 5);
+            selectedDaysOfWeek.forEach((element, id)=>{
+                fiveDays.forEach((elem, index)=>{
                     if (id === index) elem.innerHTML = element;
                 });
             });
@@ -7600,33 +7618,33 @@ function weekDay() {
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9mBRZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"87ZlO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "feelLike", ()=>feelLike);
-parcelHelpers.export(exports, "humidit", ()=>humidit);
-parcelHelpers.export(exports, "sunSet", ()=>sunSet);
-parcelHelpers.export(exports, "visibility", ()=>visibility);
-parcelHelpers.export(exports, "sunRise", ()=>sunRise);
+parcelHelpers.export(exports, "setWeatherFeelLike", ()=>setWeatherFeelLike);
+parcelHelpers.export(exports, "setHumidity", ()=>setHumidity);
+parcelHelpers.export(exports, "setSunSet", ()=>setSunSet);
+parcelHelpers.export(exports, "setVisibility", ()=>setVisibility);
+parcelHelpers.export(exports, "setSunRise", ()=>setSunRise);
 var _app = require("./app");
 let feelsLike = document.querySelector(".card__item__body");
 let humidity = document.querySelector(".card__item__hum");
 let sunset = document.querySelector(".card__item__sunset");
 let sunrise = document.querySelector(".card__item__sunrise");
 let visibl = document.querySelector(".card__item__visibl");
-function feelLike(data) {
+function setWeatherFeelLike(data) {
     feelsLike.innerHTML = Math.round(data.main.feels_like) + "&#8451";
 }
-function humidit(data) {
+function setHumidity(data) {
     humidity.innerHTML = data.main.humidity + "%";
 }
-function sunSet(data) {
+function setSunSet(data) {
     sunset.innerHTML = (0, _app.getHours)(data.sys.sunset * 1000);
 }
-function visibility(data) {
+function setVisibility(data) {
     visibl.innerHTML = data.visibility / 1000 + "KM";
 }
-function sunRise(data) {
+function setSunRise(data) {
     sunrise.innerHTML = (0, _app.getHours)(data.sys.sunrise * 1000);
 }
 
