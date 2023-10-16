@@ -19,6 +19,7 @@ const searchIn = document.querySelector(".search__in");
 const location = document.querySelector(".search__location");
 const mainSearch = document.querySelector(".main__search");
 const mainMenu = document.querySelector(".main__menu");
+const windSpeed = document.querySelector(".wind__speed");
 const times = document.querySelectorAll(".time");
 const icons = document.querySelectorAll(".head__icon");
 const temps = document.querySelectorAll(".head__temp");
@@ -27,7 +28,7 @@ const maxTemps = document.querySelectorAll(".max__temp");
 const tenIcons = document.querySelectorAll(".img__icon");
 const closePopup = document.querySelector(".close__popup");
 const error = document.querySelector(".error");
-const locationBurger = document.querySelector('.location__burger');
+const locationBurger = document.querySelector(".location__burger");
 
 export function getHoursString(dateTime) {
   let date = new Date(dateTime);
@@ -106,11 +107,13 @@ function init() {
       API_URL_WEATHER_NOW + city + `&appid=${API_KEY}`
     );
     const data = await response.json();
+    console.log(data);
     if (data.cod == "200") {
       temperatureNow.innerHTML = Math.round(data.main.temp) + "&#8451";
       description.innerHTML = data.weather.map((item) => item.description);
       cityName.innerHTML = data.name;
       location.innerHTML += addCard(data);
+      windSpeed.innerHTML = data.wind.speed + "km/h";
       setWeatherFeelLike(data);
       setHumidity(data);
       setSunSet(data);
@@ -162,6 +165,7 @@ function init() {
       .slice(0, 10)
       .join("");
     searchOption.innerHTML = html;
+
     console.log("options >>>", options);
   }
   searchInput.addEventListener("change", displayOptions);
@@ -171,7 +175,7 @@ function init() {
     const API_FIVE_DAY_URL = `https://api.openweathermap.org/data/2.5/forecast?units=metric&q=${city}`;
     const response = await fetch(API_FIVE_DAY_URL + `&appid=${API_KEY}`);
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     let newArr = data.list.slice();
     function getMinimumTemperatureFiveDay() {
