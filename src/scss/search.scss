@@ -137,7 +137,7 @@
         border: 1px solid transparent;
         border-radius: 13px;
         cursor: pointer;
-        @media(max-width:764px){
+        @media (max-width: 764px) {
           width: 250px;
         }
         &:hover {
@@ -355,13 +355,13 @@
       background-color: rgba(58, 169, 255, 1);
     }
   }
-  @media(max-width:580px){
+  @media (max-width: 580px) {
     position: absolute;
     top: 10%;
     left: 62%;
     z-index: 5;
   }
-  @media(max-width:540px){
-   display: none;
+  @media (max-width: 540px) {
+    display: none;
   }
 }

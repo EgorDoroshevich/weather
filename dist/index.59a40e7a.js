@@ -667,7 +667,7 @@ function init() {
         locationBurger.style.filter = "none";
         searchInput.value = "";
     });
-    (0, _setDayOfTheWeek.setDayOfTheWeek)();
+    // setDayOfTheWeek();
     const API_KEY = "6c75935c4cd7d533d00015e611a56556";
     const API_URL_WEATHER_NOW = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
     async function getWeatherNow(city) {
@@ -723,7 +723,6 @@ function init() {
             return `<li><span>${cityNameHL}</span></li>`;
         }).slice(0, 10).join("");
         searchOption.innerHTML = html;
-        console.log("options >>>", options);
     }
     searchInput.addEventListener("change", displayOptions);
     searchInput.addEventListener("keyup", displayOptions);
@@ -732,20 +731,21 @@ function init() {
         const response = await fetch(API_FIVE_DAY_URL + `&appid=${API_KEY}`);
         const data = await response.json();
         console.log(data);
-        let newArr = data.list.slice();
+        (0, _setDayOfTheWeek.setDayOfTheWeek)();
+        let newArrMinTemperature = data.list.slice();
         function getMinimumTemperatureFiveDay() {
             let oneDayMinTemperature = [
-                ...newArr.splice(0, 8)
+                ...newArrMinTemperature.splice(0, 8)
             ];
             let minTemperature = oneDayMinTemperature.map((elem)=>elem.main.temp_min).reduce((x, y)=>Math.min(x, y));
             return minTemperature;
         }
+        let newArrMaxTemperature = data.list.slice();
         function getMaximumTemperatureFiveDay() {
             let oneDayMaxTemperature = [
-                ...data.list.splice(0, 8)
+                ...newArrMaxTemperature.splice(0, 8)
             ];
             let maxTemperature = oneDayMaxTemperature.map((elem)=>elem.main.temp_max).reduce((x, y)=>Math.max(x, y));
-            console.log(maxTemperature);
             return maxTemperature;
         }
         function setMaximumTemperature() {
@@ -7600,6 +7600,13 @@ const options = {
 };
 const dayOfWeek = date.toLocaleString("en-US", options);
 let daysOfWeek = [
+    "Monday",
+    "Tuesday ",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
     "Monday",
     "Tuesday ",
     "Wednesday",

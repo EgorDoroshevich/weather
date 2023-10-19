@@ -98,7 +98,7 @@ function init() {
     searchInput.value = "";
   });
 
-  setDayOfTheWeek();
+  // setDayOfTheWeek();
 
   const API_KEY = "6c75935c4cd7d533d00015e611a56556";
   const API_URL_WEATHER_NOW = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
@@ -166,7 +166,7 @@ function init() {
       .join("");
     searchOption.innerHTML = html;
 
-    console.log("options >>>", options);
+   
   }
   searchInput.addEventListener("change", displayOptions);
   searchInput.addEventListener("keyup", displayOptions);
@@ -176,21 +176,22 @@ function init() {
     const response = await fetch(API_FIVE_DAY_URL + `&appid=${API_KEY}`);
     const data = await response.json();
     console.log(data);
+    setDayOfTheWeek();
 
-    let newArr = data.list.slice();
+    let newArrMinTemperature = data.list.slice();
     function getMinimumTemperatureFiveDay() {
-      let oneDayMinTemperature = [...newArr.splice(0, 8)];
+      let oneDayMinTemperature = [...newArrMinTemperature.splice(0, 8)];
       let minTemperature = oneDayMinTemperature
         .map((elem) => elem.main.temp_min)
         .reduce((x, y) => Math.min(x, y));
       return minTemperature;
     }
+    let newArrMaxTemperature = data.list.slice();
     function getMaximumTemperatureFiveDay() {
-      let oneDayMaxTemperature = [...data.list.splice(0, 8)];
+      let oneDayMaxTemperature = [...newArrMaxTemperature.splice(0, 8)];
       let maxTemperature = oneDayMaxTemperature
         .map((elem) => elem.main.temp_max)
         .reduce((x, y) => Math.max(x, y));
-      console.log(maxTemperature);
       return maxTemperature;
     }
     function setMaximumTemperature() {
@@ -249,6 +250,7 @@ function init() {
         });
       });
     }
+
     setFiveIcon();
     setTime();
     setIcon();
